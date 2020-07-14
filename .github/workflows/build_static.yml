@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        version: [ 9.6 10 11 12 ]
+        version: [ 9.6, 10, 11, 12 ]
 
     steps:
       - name: Build binary of ${{ matrix.version }}
