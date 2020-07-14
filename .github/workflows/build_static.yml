@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Add necessary packages
-        run: apt-get update && apt-get install -y libssl-dev libreadline-dev  zlib1g-dev
+        run: sudo apt-get update && sudo apt-get install -y libssl-dev libreadline-dev  zlib1g-dev
 
       - name: Build binary of ${{ matrix.version }}
         run: |
