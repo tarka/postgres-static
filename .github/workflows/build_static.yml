@@ -1,6 +1,8 @@
 ---
 
 name: Build static binaries
+on: [push]
+
 jobs:
   build_biniaries:
     name: Postgres ${{ matrix.version }} build
