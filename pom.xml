@@ -19,11 +19,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.atlassian.pom</groupId>
-        <artifactId>public-pom</artifactId>
-        <version>6.0.2</version>
-    </parent>
 
     <name>Data Center Migration Postgres Binaries</name>
     <groupId>com.atlassian.migration.datacenter</groupId>
@@ -40,22 +35,5 @@
         <distribution>repo</distribution>
       </license>
     </licenses>
-
-
-    <repositories>
-        <repository>
-            <id>atlassian-public</id>
-            <url>https://packages.atlassian.com/mvn/maven-external/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </repository>
-    </repositories>
 
 </project>
