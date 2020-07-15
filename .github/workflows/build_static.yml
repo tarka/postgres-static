@@ -40,16 +40,10 @@ jobs:
 
           make -j $ncpu
 
-      - name: test1
-        run: ls -al
-
-      - name: test2
-        run: ls -al postgresql
-
       - name: Save binary
         uses: actions/upload-artifact@v2
         with:
-          name: pg_dump-${version}
+          name: pg_dump-${{ matrix.version }}
           path: postgresql/src/bin/pg_dump/pg_dump
 
   # An alternative to this would be to package each version individually
