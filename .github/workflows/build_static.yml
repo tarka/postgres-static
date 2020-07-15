@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: pg_dump-${version}
-          path: pg_dump-${version}
+          path: postgresql/pg_dump-${version}
 
 
 
