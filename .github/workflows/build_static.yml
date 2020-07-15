@@ -4,7 +4,7 @@ name: Build static binaries
 on: [push]
 
 jobs:
-  build_biniaries:
+  build_binaries:
     name: Postgres ${{ matrix.version }} build
     runs-on: ubuntu-16.04
     timeout-minutes: 25
@@ -38,19 +38,28 @@ jobs:
           # Force pg_dump binaries to be built statically
           sed -i "/^LDFLAGS_INTERNAL/a LDFLAGS += -static -lpthread" src/bin/pg_dump/Makefile
 
-          make -j $ncpu && \
-            ln src/bin/pg_dump/pg_dump pg_dump-${version}
+          make -j $ncpu
+
+      - name: test1
+        run: ls -al
+
+      - name: test2
+        run: ls -al postgresql
 
       - name: Save binary
         uses: actions/upload-artifact@v2
         with:
           name: pg_dump-${version}
-          path: postgresql/pg_dump-${version}
+          path: postgresql/src/bin/pg_dump/pg_dump
 
+  # An alternative to this would be to package each version individually
+  package_binaries:
+    name: Package pg_dump binaries
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download all binaries
+        uses: actions/download-artifact@v2
 
-
-        # run: |
-        #   mkdir 
-        #   for bin in "pg_dump pg_dumpall pg_restore"; do
-        #       cp src/bin/pg_dump/$bin ${BASE}/pg_dump_bin/${bin}-${version}
-        #   done
+      - name: Temp
+        run: find
