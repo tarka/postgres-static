@@ -1,0 +1,13 @@
+.idea/
+*.iml
+
+target/
+src/main/resources/pg_dump*
+
+### macOS template
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+*.zip
