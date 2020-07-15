@@ -17,12 +17,13 @@ jobs:
       - name: Add necessary packages
         run: sudo apt-get update && sudo apt-get install -y libssl-dev libreadline-dev  zlib1g-dev
 
-      - name: Build binary of ${{ matrix.version }}
+      - name: Build binary for Postgres ${{ matrix.version }}
         run: |
           git clone https://git.postgresql.org/git/postgresql.git
           cd postgresql
           
           ncpu=`lscpu -eCPU | sort -n | tail -n1`
+          echo Building with $ncpu threads
 
           # Find the latest tag for this version. Note that this assumes the
           # minor verion is always position 3 (delimited by '_'). Currently
@@ -37,9 +38,19 @@ jobs:
           # Force pg_dump binaries to be built statically
           sed -i "/^LDFLAGS_INTERNAL/a LDFLAGS += -static -lpthread" src/bin/pg_dump/Makefile
 
-          make -j $ncpu
+          make -j $ncpu && \
+            ln src/bin/pg_dump/pg_dump pg_dump-${version}
 
-        
-          # for bin in $BINS; do
-          #     cp src/bin/pg_dump/$bin ${BASE}/pg_dump_bin/${bin}-${version}
-          # done
+      - name: Save binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: pg_dump-${version}
+          path: pg_dump-${version}
+
+
+
+        # run: |
+        #   mkdir 
+        #   for bin in "pg_dump pg_dumpall pg_restore"; do
+        #       cp src/bin/pg_dump/$bin ${BASE}/pg_dump_bin/${bin}-${version}
+        #   done
